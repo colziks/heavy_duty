@@ -203,15 +203,6 @@ LSTM/GRU или полноценный RL — оставлены как future w
 ## UX-флоу (зафиксированные решения)
 
 ### Главный экран (Home)
-<img width="1472" height="2020" alt="image" src="https://github.com/user-attachments/assets/73eb0752-4314-4776-9009-db4840f679c1" />
-<img width="1472" height="1076" alt="image" src="https://github.com/user-attachments/assets/ec520bf7-2ad0-43f8-8e73-e1b39d2aca2a" />
-<img width="1472" height="2020" alt="image" src="https://github.com/user-attachments/assets/bafd9818-13a9-42f8-8e1c-499d74ad2171" />
-<img width="1472" height="982" alt="image" src="https://github.com/user-attachments/assets/81ab2d2d-af87-44b6-9491-4d53238eff3e" />
-<img width="1472" height="982" alt="image" src="https://github.com/user-attachments/assets/2cca2626-bc6a-432c-90fe-36e54d004590" />
-
-<img width="1472" height="1076" alt="image" src="https://github.com/user-attachments/assets/91d5e01f-722f-4620-b9af-219fff447a7e" />
-
-
 - Приветствие + дата, стрик тренировок, прогресс за неделю (X из Y тренировок)
 - Центральный акцентный блок "Сегодня по плану" — название дня + кнопка "Начать тренировку"
 - Кнопка "Повторить последнюю сессию" — отдельный от расписания путь: открывает
