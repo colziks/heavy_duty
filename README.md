@@ -59,7 +59,8 @@ w_personal = n_sessions / (n_sessions + k)   # k — константа сгла
 ### Rule-based логика (double progression + RIR) — используется для генерации синтетических данных популяционной модели
 ```
 ЕСЛИ reps >= exercise.default_rep_range_max И rir >= целевой_RIR:
-    новый_вес = текущий_вес + exercise.weight_increment
+    шаг = next(exercise.weight_increment_sequence)  (по кругу, microloading)
+    новый_вес = текущий_вес + шаг
     новый_reps = exercise.default_rep_range_min  (сброс к низу диапазона)
 ИНАЧЕ ЕСЛИ reps < exercise.default_rep_range_max И rir >= целевой_RIR:
     новый_вес = текущий_вес (без изменений)
@@ -72,7 +73,8 @@ w_personal = n_sessions / (n_sessions + k)   # k — константа сгла
 **Fallback без RIR** (когда пользователь выключил отслеживание RIR в настройках) — чистая двойная прогрессия по повторениям, без условия по RIR. Подтверждено собственной практикой автора — годами применялось именно так, RIR не фиксировался вовсе:
 ```
 ЕСЛИ reps >= exercise.default_rep_range_max:
-    новый_вес = текущий_вес + exercise.weight_increment
+    шаг = next(exercise.weight_increment_sequence)
+    новый_вес = текущий_вес + шаг
     новый_reps = exercise.default_rep_range_min
 ИНАЧЕ:
     новый_вес = текущий_вес
@@ -185,7 +187,12 @@ LSTM/GRU или полноценный RL — оставлены как future w
 - difficulty (beginner/intermediate/advanced)
 - movement_type (compound/isolation)
 - default_rep_range_min / default_rep_range_max  (per-exercise, не общий диапазон)
-- weight_increment  (минимальный шаг прогрессии веса, per-exercise: 1.25/2.5/5 кг)
+- weight_increment_sequence  (чередующаяся последовательность шагов прогрессии
+  веса — microloading, per-exercise: например [1.25, 1.25] для плавной загрузки
+  или [2.5, 1.25] для чередования большого/малого шага; берётся по кругу на
+  основе счётчика предыдущих инкрементов по этому упражнению у пользователя.
+  Заменяет единый weight_increment — резкий фиксированный шаг может быть
+  слишком велик относительно реальной скорости прогресса)
 - default_rest_seconds  (время отдыха между подходами по умолчанию; используется
   для расчёта примерной длительности тренировки на Home-экране, пока нет истории —
   после нескольких выполненных тренировок заменяется на реальное среднее из
